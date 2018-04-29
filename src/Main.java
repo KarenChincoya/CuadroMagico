@@ -1,7 +1,5 @@
 
-import Controller.Cuadro;
 import View.MainFrame;
-import View.TableroPanel;
 
 /*
  * To change this license header, choose License Headers in Project Properties.

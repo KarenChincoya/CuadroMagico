@@ -15,5 +15,6 @@ public enum ResultadoMatriz {
     valoresNoValidos,
     valoresCorrectos,
     sumasCorrectas,
+    matrizCero,
     valido
 }

@@ -6,6 +6,7 @@
 package Controller;
 
 import Model.ResultadoMatriz;
+import static Model.ResultadoMatriz.matrizCero;
 import static Model.ResultadoMatriz.sumasCorrectas;
 import static Model.ResultadoMatriz.sumasDesiguales;
 import static Model.ResultadoMatriz.valido;
@@ -27,18 +28,16 @@ public class Cuadro {
     }
     
     public ResultadoMatriz isMagico(){//0 = correcto, 1 = sumas no coinciden, 2 ingreso los mismos valores 
-        ResultadoMatriz resultado = null;
         if(this.evaluarSumas()== sumasCorrectas && this.evaluarNumeros()==valoresCorrectos)
             return valido;
-        else{
-            if(this.evaluarNumeros()== valoresNoValidos)
+        else if(this.evaluarNumeros()== valoresNoValidos)
                 return valoresNoValidos;
-            else if(this.evaluarNumeros() == valoresRepetidos)
+        else if(this.evaluarNumeros() == valoresRepetidos)
                 return valoresRepetidos;
-            else if(this.evaluarSumas() == sumasDesiguales)
+        else if(this.evaluarSumas() == sumasDesiguales)
                 return sumasDesiguales;
-        }
-        return resultado;
+        else
+            return matrizCero;
     }
     
     public ResultadoMatriz evaluarSumas(){
@@ -98,7 +97,18 @@ public class Cuadro {
     public ResultadoMatriz evaluarNumeros(){
         //1. ordenar los datos
         Integer[] valores = new Integer[n*n];
-        
+                
+        //evaluar los ceros
+        int ceros = 0;
+        for(int i=0;i<n; i++){
+            for(int j=0; j<n; j++){
+                if(matriz[j][i]==0)
+                    ceros++;
+            }
+        }
+
+        if(ceros==(n*n))return matrizCero;
+
         int k=0;
         
         for(k=0; k<(n*n); k++){
@@ -107,15 +117,17 @@ public class Cuadro {
         
         for(int i=0; i<n;i++){ //y
             for(int j=0; j<n; j++){ //x
+                
                 //Aumentar valores
                 if(matriz[j][i]<1 || matriz[j][i]>(n*n)){
                     return valoresNoValidos;//valores no validos
                 }
                 //aumentar 
                 valores[matriz[j][i]-1]++;
+                
             }
         }
-        
+                
         Integer cont=0;
         for(k=0; k<(n*n);k++){
             if(valores[k]==1)

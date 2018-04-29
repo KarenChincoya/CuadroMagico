@@ -15,6 +15,7 @@ import javax.swing.JTextField;
 public class RTextField extends JTextField{
     Integer numero;
     
+    
     public void setNumero(Integer numero){
         this.numero = numero;
     }

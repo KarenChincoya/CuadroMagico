@@ -40,20 +40,12 @@ public class TableroPanel extends JPanel {
         cajitas.setLayout(layout);
         cajitas.setSize(n * 45, n * 45);
 
-        int x = 0;
-        int y = 0;
+        
+        //int y = 0;
         //GridLayout(n,n)
         valor = new RTextField[n][n];
 
-        for (int i = 0; i < n; i++) {//Y
-            x = 0;
-            for (int j = 0; j < n; j++) {//X
-                valor[j][i] = new RTextField();
-                valor[j][i].setBounds(i * 35 + 10, j * 35 + 10, 30, 30);
-                cajitas.add(valor[j][i]);
-
-            }
-        }
+        this.agregarCajitas();
 
         enviar = new JButton("Enviar");
         enviar.addActionListener(new ActionListener() {
@@ -78,7 +70,6 @@ public class TableroPanel extends JPanel {
         Integer aux;
         String cadenita;
         for (int i = 0; i < n; i++) {
-
             for (int j = 0; j < n; j++) {
                 //object
                 cadenita = valor[j][i].getText();
@@ -88,12 +79,16 @@ public class TableroPanel extends JPanel {
                     aux = Integer.valueOf(cadenita);
 
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    //retorna la matriz cero
+                    System.out.println("Funcion de invoco valores invalidos");
+                    return this.matrizCero();
+//                    e.printStackTrace();
                 } finally {
                     if (aux != null) {
                         matriz[j][i] = aux;
                     } else {//validar los datos
                         System.out.println("Valor no valido: " + cadenita);
+                        
                     }
 
                 }
@@ -103,4 +98,28 @@ public class TableroPanel extends JPanel {
         return matriz;
 
     }
+    
+    public void agregarCajitas(){
+        int x = 0;
+        for (int i = 0; i < n; i++) {//Y
+            x = 0;
+            for (int j = 0; j < n; j++) {//X
+                valor[j][i] = new RTextField();
+                valor[j][i].setBounds(i * 35 + 10, j * 35 + 10, 30, 30);
+                valor[j][i].setText("");
+                cajitas.add(valor[j][i]);
+            }
+        }
+    }
+    
+    public Integer[][] matrizCero(){
+        Integer[][] matriz = new Integer[n][n];
+        for(int i=0; i<n; i++){
+            for(int j=0; j<n; j++){
+                matriz[j][i]=0;
+            }
+        }
+        return matriz;
+    }
+    
 }
